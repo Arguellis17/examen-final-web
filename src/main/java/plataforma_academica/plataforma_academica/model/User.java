@@ -22,4 +22,6 @@ public class User {
     // Insertando el enum
     RoleEnum role;
 
+    private boolean active = true;
+
 }

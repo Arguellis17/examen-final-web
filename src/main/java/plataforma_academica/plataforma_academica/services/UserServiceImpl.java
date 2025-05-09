@@ -1,6 +1,8 @@
 package plataforma_academica.plataforma_academica.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import plataforma_academica.plataforma_academica.model.RoleEnum;
 import plataforma_academica.plataforma_academica.model.User;
 import plataforma_academica.plataforma_academica.repositories.UserRepository;
@@ -13,7 +15,8 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<User> findAll() {
-        return userRepository.findAll();
+        return userRepository.findAll()
+                .stream().filter(User::isActive).toList();
     }
 
     @Override
@@ -30,8 +33,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void deleteById(Long id) {
-        userRepository.deleteById(id);
+    public void deleteById(Long id) throws Exception {
+        softDeleteUser(id);
     }
 
     @Override
@@ -55,9 +58,53 @@ public class UserServiceImpl implements UserService{
         User user = new User();
         user.setName(name);
         user.setEmail(email);
+        user.setPassword(passwordEncoder().encode("default_password"));
         user.setRole(roleEnum);
-        user.setPassword("default_password"); // opcional: generar contraseña temporal
+        user.setActive(true);
 
         return userRepository.save(user);
+    }
+
+    @Override
+    public User authenticateUser(String email, String password) throws Exception {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new Exception("Usuario no encontrado"));
+
+        if (!user.isActive()) {
+            throw new Exception("Usuario deshabilitado");
+        }
+
+        if (!passwordEncoder().matches(password, user.getPassword())) {
+            throw new Exception("Contraseña incorrecta");
+        }
+
+        // Aquí podrías generar un token JWT si decides usarlo
+        return user;
+    }
+
+    @Override
+    public User getUserProfile(Long userId) throws Exception {
+        return userRepository.findById(userId)
+                .filter(User::isActive)
+                .orElseThrow(() -> new Exception("Usuario no encontrado o desactivado"));
+    }
+
+    @Override
+    public User updateUserProfile(Long userId, String name, String password) throws Exception {
+        User user = getUserProfile(userId);
+        user.setName(name);
+        user.setPassword(passwordEncoder().encode(password));
+        return userRepository.save(user);
+    }
+
+    @Override
+    public void softDeleteUser(Long userId) throws Exception {
+        User user = getUserProfile(userId);
+        user.setActive(false);
+        userRepository.save(user);
+    }
+
+    private PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(); // Para usarlo, incluye spring-boot-starter-security en el pom.xml
     }
 }
