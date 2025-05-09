@@ -59,8 +59,4 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findByEmail(email);
     }
 
-    @Override
-    public List<Student> findByPhone(String phone) throws Exception {
-        return studentRepository.findByPhone(phone);
-    }
 }
