@@ -55,8 +55,5 @@ public class StudentController {
         return studentService.findByEmail(email);
     }
 
-    @GetMapping("/search/phone")
-    public List<Student> getStudentsByPhone(@RequestParam String phone) throws Exception {
-        return studentService.findByPhone(phone);
-    }
+
 }

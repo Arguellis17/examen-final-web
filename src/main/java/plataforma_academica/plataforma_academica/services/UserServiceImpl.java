@@ -8,11 +8,16 @@ import plataforma_academica.plataforma_academica.model.User;
 import plataforma_academica.plataforma_academica.repositories.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepository userRepository;
 
+    @Override
+    public Optional<User> findById(Long id) throws Exception {
+        return userRepository.findById(id);
+    }
     @Override
     public List<User> findAll() {
         return userRepository.findAll()
