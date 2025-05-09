@@ -6,5 +6,5 @@ public class Teacher extends User {
 
     private List<TeacherSchedule> avaliableSchedule;
     private List<UnvaliableTime> unvaliableTimes;
-    private List<Subjects> subjects;
+    private List<Subject> subjects;
 }
