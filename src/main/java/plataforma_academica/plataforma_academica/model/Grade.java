@@ -22,7 +22,8 @@ public class Grade {
     private Evaluation evaluation;
     private Double score;
     private LocalDateTime timestap;
-    private List<GradeHistory> history;
+    @OneToMany(mappedBy = "grade", cascade = CascadeType.ALL)
+    private List<GradeHistory> histories;
 
 
 }
