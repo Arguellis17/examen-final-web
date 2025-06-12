@@ -1,0 +1,40 @@
+---
+// src/pages/index.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Home">
+  <h2 class="text-3xl font-bold text-gray-800 mb-6">Welcome to the Academic Platform Dashboard</h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-xl font-semibold text-blue-600 mb-4">Students</h3>
+      <p class="text-gray-700">Manage student profiles, enrollments, and academic records.</p>
+      <a href="/students" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-200">View Students</a>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-xl font-semibold text-blue-600 mb-4">Teachers</h3>
+      <p class="text-gray-700">Handle teacher assignments, schedules, and qualifications.</p>
+      <a href="/teachers" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-200">View Teachers</a>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-xl font-semibold text-blue-600 mb-4">Subjects</h3>
+      <p class="text-gray-700">Organize courses, subjects, and curriculum details.</p>
+      <a href="/subjects" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-200">View Subjects</a>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-xl font-semibold text-blue-600 mb-4">Grades & Evaluations</h3>
+      <p class="text-gray-700">Input and review grades, and manage student evaluations.</p>
+      <a href="/grades" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-200">View Grades</a>
+    </div>
+
+     <div class="bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-xl font-semibold text-blue-600 mb-4">Users & Roles</h3>
+      <p class="text-gray-700">Manage user accounts and assign roles within the platform.</p>
+      <a href="/users" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-200">View Users</a>
+    </div>
+  </div>
+</BaseLayout>
